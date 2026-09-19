@@ -1,0 +1,42 @@
+{
+ "armed_at": "2026-09-19",
+ "baselines": {
+  "diabolique": {
+   "as_of": "2026-09-19",
+   "plays": null,
+   "tier": null
+  },
+  "doves-and-diamonds": {
+   "as_of": "2026-09-19",
+   "plays": null,
+   "tier": null
+  },
+  "shaka-zulu": {
+   "as_of": "2026-09-19",
+   "plays": null,
+   "tier": null
+  },
+  "zooted-zone": {
+   "as_of": "2026-09-14",
+   "evidence_tier": "REPORTED",
+   "plays": 307000,
+   "verification": "Black-stated lifetime Spotify plays, 2026-09-14"
+  }
+ },
+ "kill_rule": "Event-driven: no verified milestone in 120 days from arming (2026-09-19) -> PARK the lane (not kill). A PARKED lane keeps the sensor runnable but stops scheduled checks.",
+ "known_placement_ids": [
+  "eric-alper-360-20260917",
+  "nrh-shakazulu-20260917",
+  "nrh-zootedzone-20260917",
+  "nrh-doves-20260917",
+  "flow-nonlabelneeded-20260917"
+ ],
+ "known_positions": {
+  "nrh-doves-20260917": 31,
+  "nrh-shakazulu-20260917": 21,
+  "nrh-zootedzone-20260917": 30
+ },
+ "schema_version": "1.0.0",
+ "status": "NO VERIFIED MILESTONE YET - sensor armed",
+ "last_check": "2026-09-19"
+}

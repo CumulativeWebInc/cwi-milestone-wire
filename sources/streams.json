@@ -1,0 +1,17 @@
+{
+ "schema_version": "1.0.0",
+ "source": "CWI memory (verified facts, 2026-09-19)",
+ "records": [
+  {
+   "track_key": "zooted-zone",
+   "track": "Zooted Zone",
+   "artist": "That Boy Hi Hat",
+   "plays": 307000,
+   "source": "Spotify",
+   "lifetime": true,
+   "as_of": "2026-09-14",
+   "evidence_tier": "REPORTED",
+   "verification": "Black-stated lifetime Spotify plays, 2026-09-14 (CWI memory claim, high confidence)"
+  }
+ ]
+}

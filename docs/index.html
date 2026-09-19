@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cwi-milestone-wire — Milestone Detection Sensor</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.6; color: #111; background: #fafafa; }
+  .status { border: 2px solid #1a7f37; border-radius: 12px; padding: 20px; background: #f0fff4; margin: 24px 0; }
+  .status h2 { margin-top: 0; color: #1a7f37; }
+  code { background: #eee; padding: 2px 6px; border-radius: 4px; }
+  pre { background: #111; color: #d6ffe0; padding: 16px; border-radius: 8px; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+  th { background: #eee; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+  .silver { background: #e8e8e8; } .bronze { background: #f5e6c8; } .reported { background: #dbe9ff; }
+  .sample { background: #ffdada; } .projected { background: #f0e0ff; }
+  footer { margin-top: 40px; font-size: 13px; color: #666; }
+</style>
+</head>
+<body>
+<h1>cwi-milestone-wire</h1>
+<p>A milestone-detection sensor for Cumulative Web Inc. It watches verified
+data sources — playlist placements and stream counts — and emits a structured
+alert payload when a <strong>real</strong> milestone fires. Zero dependencies,
+Node stdlib only, $0.</p>
+
+<div class="status">
+  <h2>Current state</h2>
+  <p><strong>NO VERIFIED MILESTONE YET — sensor armed.</strong></p>
+  <p>Armed 2026-09-19. Watching 5 verified playlist placements as baseline and
+  stream figures (Zooted Zone: 307,000 lifetime Spotify plays, REPORTED,
+  2026-09-14). Placements verified before arming never fire — only <em>new</em>
+  verified events do. Per the no-zeros law, this page stays silent until the
+  sensor fires on something verified.</p>
+</div>
+
+<h2>Evidence tiers</h2>
+<p>Every alert carries its evidence tier and verification link. Only these fire:</p>
+<table>
+  <tr><th>Tier</th><th>Meaning</th><th>Fires?</th></tr>
+  <tr><td><span class="badge silver">SILVER</span></td><td>Distributor / label dashboard (screenshot)</td><td>Yes</td></tr>
+  <tr><td><span class="badge bronze">BRONZE</span></td><td>Public third-party API (e.g. Spotify/Deezer)</td><td>Yes</td></tr>
+  <tr><td><span class="badge reported">REPORTED</span></td><td>Dated, attributed manager/team statement</td><td>Yes</td></tr>
+  <tr><td><span class="badge sample">SAMPLE</span></td><td>Demonstration fixture — fictitious</td><td>Only in <code>--demo</code>, stamped</td></tr>
+  <tr><td><span class="badge projected">PROJECTED</span></td><td>Forecast — never an achievement</td><td>Never</td></tr>
+</table>
+
+<h2>What fires a milestone</h2>
+<ul>
+  <li><strong>Stream crossing:</strong> a new verified figure above the last
+    verified figure that crosses a threshold (Zooted Zone ROAD-1M: 500K / 750K /
+    1M; Diabolique, Shaka Zulu, Doves &amp; Diamonds: 50K / 100K / 250K).</li>
+  <li><strong>New verified placement:</strong> a track appears on a playlist it
+    was not known to be on, verified by scan.</li>
+  <li><strong>Position jump ≥ 5</strong> on a tracked playlist.</li>
+  <li><strong>Reaching #1</strong> on any tracked playlist.</li>
+</ul>
+
+<h2>Alert payload</h2>
+<p>Each alert is JSON with track, milestone, detail, evidence tier, verified
+date, verification method, receipt link, baseline, and draft promo copy for
+Threads / Instagram / WhatsApp (all labeled <code>[DRAFT]</code>; CWI accounts
+may fire per standing order — Black's personal name, DMs, emails, subscriber
+blasts, and personal Facebook stay gated).</p>
+<pre>{
+  "wire": "cwi-milestone-wire",
+  "version": "1.0.0",
+  "track": "Zooted Zone",
+  "milestone": "stream_crossing",
+  "detail": "500,000 lifetime Spotify plays",
+  "evidence_tier": "SILVER",
+  "verified_date": "2026-09-19",
+  "verification": "DistroKid dashboard screenshot",
+  "receipt_link": "...",
+  "copy": { "threads": "[DRAFT — CWI account only] ...", "...": "..." }
+}</pre>
+
+<h2>Running it</h2>
+<pre>node bin/detect.js          # live run: checks, updates state/, emits alerts/
+node bin/detect.js --demo   # demo: fires on SAMPLE fixtures, no state writes
+node --test tests/test.js   # 9/9 green</pre>
+
+<h2>Kill rule</h2>
+<p>Event-driven: no verified milestone in 120 days from arming (2026-09-19) →
+<strong>PARK</strong> the lane (not kill). A parked lane keeps the sensor
+runnable but stops scheduled checks.</p>
+
+<footer>
+  Cumulative Web Inc — cwi-milestone-wire v1.0.0.
+  Never fabricate metrics. Verified or it didn't happen.
+</footer>
+</body>
+</html>
